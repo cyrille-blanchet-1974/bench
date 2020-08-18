@@ -84,13 +84,24 @@ All Threads -> 132.6019321s
 XPS17 = 173.24% du temps de 4 threads
 73% plus lent pour le double de traitement
 ********************************************************************
+
+release/chromebook/8T->1.952758666s
+release/chromebook/4T->952.447168ms
+release/chromebook/2T->502.97295ms
+release/chromebook/1T->434.80758ms
+LOOP*1000 divisé entre les threads
+release/chromebook/1T->404.575073961s (2.7Ghz tout du long)
+release/chromebook/2T->
+release/chromebook/4T->241.076748227s (2.7Ghz-> 2.0)
+release/chromebook/8T->261.777100944s (2.7Ghz-> 2.0) 
+
 */
 
-pub const THREAD_COUNT: i8 = 8;
-pub const LOOP_COUNT: i64 = 1_000_000_000;//_000;
+pub const THREAD_COUNT: i64 = 8;
+pub const LOOP_COUNT: i64 = 1_000_000_000_000;
 pub const STEPS: i64 = 25;
 
-fn actions(threadnb : i8) {
+fn actions(threadnb : i64) {
     println!("Thread {}", threadnb);
     let start = SystemTime::now();
     let mut j=0;
@@ -102,7 +113,7 @@ fn actions(threadnb : i8) {
         space.push(' ');
     }
     let mut step=LOOP_COUNT/STEPS;
-    for i in 1..LOOP_COUNT {
+    for i in 1..(LOOP_COUNT/THREAD_COUNT) {
         j = j+1;
         step = step-1;
         if step == 0 {
