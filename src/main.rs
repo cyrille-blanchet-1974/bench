@@ -59,10 +59,10 @@ théorie
 8 Thread pour 31.25 milliards d'op -> 31.25s @ 1Ghz -> 12.6s @2.2Ghz (XPS) 11.16s@2.8Ghz 9.76s @3.2Ghz
 ----------------------------------------
 chromebook/m3
-1 Thread -> 
-2 Thread ->
-4 Thread -> 
-8 Thread -> 
+1 Thread -> 95.734160289s 3Ghz puis baisse jusquà 2,4Ghz
+2 Thread -> 53.51747716s 2.7Ghz à 2ghz en fin
+4 Thread -> 59.548298325s (2.7Hhz puis 2.2Ghz et enfin 2Ghz)
+8 Thread -> 63.647403458s
 ----------------------------------------
 XPX/i7
 1 Thread -> 168.3389195s (2.94 à 3.05Ghz)
