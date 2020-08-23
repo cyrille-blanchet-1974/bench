@@ -1,7 +1,6 @@
 use std::thread::spawn;
-//use std::time::Duration;
 use std::time::SystemTime;
-
+use std::io;
 
 /*
  1000 milliard de boucles
@@ -28,8 +27,7 @@ théorie
 1 Thread pour 5 000 milliards d'op
 2 Thread pour 2 500 milliards d'op
 4 Thread pour 1 250 milliards d'op -> 1250s@1Ghz -> 625s @ 2Ghz (CB)
-8 Thread pour 625 milliards d'op -> 625s @ 1Ghz -> 284s @2.2Ghz (XPS)
-8 Thread pour 625 milliards d'op -> 625s @ 1Ghz -> 195s @3.2Ghz (HP)
+8 Thread pour 625 milliards d'op -> 625s @ 1Ghz -> 284s @2.2Ghz (XPS) 224s@2.8Ghz 195s @3.2Ghz
 ----------------------------------------
 chromebook/m3
 1 Thread -> 404.575073961s (2.7Ghz tout du long)
@@ -42,6 +40,7 @@ XPX/i7
 2 Thread -> 342.6585474s (2.98/2.97->2.96->2.95Ghz)
 4 Thread -> 207.5616935s (2.8->2->3 sur la fin)
 8 Thread -> 218.8510899ss (2.8Ghz-> 2.2Ghz) => 1.3 IPC
+8 Thread -> 181.2074423s (2.8Ghz) => 1.25 IPC
 ----------------------------------------
 HP/i7
 1 Thread -> 
@@ -49,47 +48,94 @@ HP/i7
 4 Thread -> 216.979901s (3.2GHz)
 8 Thread -> 168.1269106s (3.2Ghz) => 1.15 IPC
 ----------------------------------------
+
+
+Passage à 250 milliards de boucles (suffisant et permet normalement de conserver l turbo tout du long)
+----------------------------------------
+théorie
+1 Thread pour 250 milliards d'op
+2 Thread pour 125 milliards d'op
+4 Thread pour 62.5 milliards d'op -> 62.5s@1Ghz -> 31.25s @ 2Ghz (CB)
+8 Thread pour 31.25 milliards d'op -> 31.25s @ 1Ghz -> 12.6s @2.2Ghz (XPS) 11.16s@2.8Ghz 9.76s @3.2Ghz
+----------------------------------------
+chromebook/m3
+1 Thread -> 
+2 Thread ->
+4 Thread -> 
+8 Thread -> 
+----------------------------------------
+XPX/i7
+1 Thread -> 168.3389195s (2.94 à 3.05Ghz)
+2 Thread -> 85.8545441s (2.91 à 2.97Ghz)
+4 Thread -> 49.2247703s (2.8Ghz tout du long)
+8 Thread -> 46.9255835s (2.8Ghz tout du long)
+----------------------------------------
+HP/i7
+1 Thread -> 
+2 Thread -> 
+4 Thread -> 
+8 Thread -> 
+----------------------------------------
+
 */
 
-pub const THREAD_COUNT: i64 = 1;
-pub const LOOP_COUNT: i64 = 1_000_000_000_000;
+//pub const THREAD_COUNT: i64 = 1;
+pub const LOOP_COUNT: i64 = 250_000_000_000;
 pub const STEPS: i64 = 25;
 
-fn actions(threadnb : i64) {
-    println!("Thread {}", threadnb);
+fn actions(thread : i64,nb_threads : i64) {
+    println!("Thread {}", thread);
     let start = SystemTime::now();
     let mut j=0;
     let mut space=String::new();
     space.push(' ');
     space.push(' ');
-    for _i in 0..threadnb{
+    for _i in 0..thread{
         space.push(' ');
         space.push(' ');
     }
     let mut step=LOOP_COUNT/STEPS;
-    for i in 1..(LOOP_COUNT/THREAD_COUNT) {
+    for i in 1..(LOOP_COUNT/nb_threads) {
         j = j+1;
         step = step-1;
         if step == 0 {
             step=LOOP_COUNT/STEPS;
-            println!("{}{}{}", threadnb,space,i);
+            println!("{}{}{}", thread,space,i);
         }
     }
     let end = SystemTime::now();
     let tps = end
         .duration_since(start)
         .expect("ERROR computing duration!");
-    println!("Thread {}-> {:?}", threadnb,tps);
+    println!("Thread {}-> {:?}", thread,tps);
 }
 
-fn main() {
-    println!("Hello, world!");
+//ask the user and read his answer
+fn read_i64(mess: String) -> Option<i64> {
+    println!("{}", mess);
+    let mut res = String::new();
+    io::stdin()
+        .read_line(&mut res)
+        .expect("Failed to read line");
+    let res = res.trim();
+
+    let r: i64 = match res.parse() {
+        Err(e) => {
+            println!("erreur {}", e);
+            return None;
+        }
+        Ok(v) => v,
+    };
+    Some(r)
+}
+
+fn traitement(nb_threads : i64){
     let mut threads = Vec::new();
     let start = SystemTime::now();
-    for i in 0..THREAD_COUNT{
+    for i in 0..nb_threads{
         println!("Start Thread N°{}",i);
         threads.push(spawn(move || {
-            actions(i);
+            actions(i,nb_threads);
         }));
     }
     for t in threads{
@@ -105,4 +151,18 @@ fn main() {
         .duration_since(start)
         .expect("ERROR computing duration!");
     println!("All Threads -> {:?}", tps);
+}
+
+fn main() {
+    println!("Little Benchmark");
+
+    println!("Nombre de threads pour traiter les {} boucles (les boucles seront partagées entre les threads:",LOOP_COUNT);
+    match read_i64("Your choice?".to_string()) {
+        None => {
+            return;
+        }
+        Some(x) => {
+            traitement(x);
+        }
+    }
 }
