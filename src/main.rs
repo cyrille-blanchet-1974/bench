@@ -36,10 +36,10 @@ XPX/i7
 8 Thread -> 45.1763295s (2.8Ghz tout du long)
 ----------------------------------------
 chromebook/m3
-1 Thread -> 95.734160289s 3Ghz puis baisse jusquà 2,4Ghz        1.75*xps
-2 Thread -> 53.51747716s 2.7Ghz à 2ghz en fin                   1.6*xps
-4 Thread -> 59.548298325s (2.7Hhz puis 2.2Ghz et enfin 2Ghz)    0.82*xps
-8 Thread -> 63.647403458s                                       0.73*xps
+1 Thread -> 87.532552053s 3Ghz puis baisse jusquà 2,7Ghz        1.75*xps
+2 Thread -> 52.41956528s 2.7Ghz en fin                   1.6*xps
+4 Thread -> 49.257671545s (2.7Ghz)    0.82*xps
+8 Thread -> 49.681403841s                                       0.73*xps
 ----------------------------------------
 HP/i7
 1 Thread -> 77.9756914s 3.4-3.5Ghe    2.16*xps
