@@ -31,9 +31,9 @@ théorie
 ----------------------------------------
 XPX/i7
 1 Thread -> 164.8552775s (3.05Ghz)
-2 Thread -> 85.8545441s (2.91 à 2.97Ghz)
-4 Thread -> 49.2247703s (2.8Ghz tout du long)
-8 Thread -> 46.9255835s (2.8Ghz tout du long)
+2 Thread -> 85.6135831s (2.95Ghz)
+4 Thread -> 48.9635876s (2.8Ghz tout du long)
+8 Thread -> 45.1763295s (2.8Ghz tout du long)
 ----------------------------------------
 chromebook/m3
 1 Thread -> 95.734160289s 3Ghz puis baisse jusquà 2,4Ghz        1.75*xps
