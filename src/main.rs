@@ -1,6 +1,6 @@
+use std::io;
 use std::thread::spawn;
 use std::time::SystemTime;
-use std::io;
 
 /*
  250 milliard de boucles
@@ -9,18 +9,18 @@ use std::io;
  1 sub pour step
  1 cmp
 => par itération 2 add 2 cmp 1 sub a 1 op/cycles
-=> 2 500 milliard de cycles 
+=> 2 500 milliard de cycles
 => 2 500 secondes à 1Ghz ?
 
 Machines de tests:
-ASUS chomebook => m3 8100Y 
-  https://ark.intel.com/content/www/fr/fr/ark/products/185282/intel-core-m3-8100y-processor-4m-cache-up-to-3-40-ghz.html 
+ASUS chomebook => m3 8100Y
+  https://ark.intel.com/content/www/fr/fr/ark/products/185282/intel-core-m3-8100y-processor-4m-cache-up-to-3-40-ghz.html
   2C/4T 1.1Ghz Base 3.4Ghz turbo (1 coeur ?) 14nm Q3 2018 4Mo de cache 4 watt TDP UHD 615 900Mhz
-DELL XPS17 => i7 2670QGM 
-  https://ark.intel.com/content/www/fr/fr/ark/products/53469/intel-core-i7-2670qm-processor-6m-cache-up-to-3-10-ghz.html 
+DELL XPS17 => i7 2670QGM
+  https://ark.intel.com/content/www/fr/fr/ark/products/53469/intel-core-i7-2670qm-processor-6m-cache-up-to-3-10-ghz.html
   4C/8T 2.2Ghz Base 3.1ghz turbo (1 coeur ?) 32nm Q4 2011 6Mo de cache 45 watt TDP  HD 3000 1100Mhz
 HP zbook => i7-6820HK
-  https://ark.intel.com/content/www/fr/fr/ark/products/88970/intel-core-i7-6820hq-processor-8m-cache-up-to-3-60-ghz.html 
+  https://ark.intel.com/content/www/fr/fr/ark/products/88970/intel-core-i7-6820hq-processor-8m-cache-up-to-3-60-ghz.html
   4C/8T 2.7Ghz Base 3.6Ghz turbo (1 coeur ?) 14nm Q3 2015 8Mo de cache 45 watt TDP HD 530 1050Mhz
 ----------------------------------------
 théorie
@@ -54,29 +54,29 @@ HP/i7
 pub const LOOP_COUNT: i64 = 250_000_000_000;
 pub const STEPS: i64 = 10;
 
-fn actions(thread : i64,nb_threads : i64) {
+fn actions(thread: i64, nb_threads: i64) {
     println!("Thread {} start", thread);
     let start = SystemTime::now();
-    let mut _j=0;
-    let mut loop_by_thread = LOOP_COUNT/nb_threads;
-    let loop_by_step = loop_by_thread/STEPS;
-    let mut step_count=loop_by_step;
-    let mut step_id=1;
+    let mut _j = 0;
+    let mut loop_by_thread = LOOP_COUNT / nb_threads;
+    let loop_by_step = loop_by_thread / STEPS;
+    let mut step_count = loop_by_step;
+    let mut step_id = 1;
     loop_by_thread += 1;
-    for _i in 1..loop_by_thread+1 {
+    for _i in 1..loop_by_thread + 1 {
         _j += 1;
         step_count -= 1;
         if step_count == 0 {
-            println!("Thread {} Step {}/{}", thread,step_id,STEPS);
-            step_id=step_id+1;
-            step_count=loop_by_step;
+            println!("Thread {} Step {}/{}", thread, step_id, STEPS);
+            step_id = step_id + 1;
+            step_count = loop_by_step;
         }
     }
     let end = SystemTime::now();
     let tps = end
         .duration_since(start)
         .expect("ERROR computing duration!");
-    println!("Thread {}-> {:?}", thread,tps);
+    println!("Thread {}-> {:?}", thread, tps);
 }
 
 //ask the user and read his answer
@@ -98,15 +98,15 @@ fn read_i64(mess: String) -> Option<i64> {
     Some(r)
 }
 
-fn traitement(nb_threads : i64){
+fn traitement(nb_threads: i64) {
     let mut threads = Vec::new();
     let start = SystemTime::now();
-    for i in 0..nb_threads{
+    for i in 0..nb_threads {
         threads.push(spawn(move || {
-            actions(i,nb_threads);
+            actions(i, nb_threads);
         }));
     }
-    for t in threads{
+    for t in threads {
         if t.join().is_err() {
             println!("1 Thread finished with error");
         }
