@@ -68,7 +68,7 @@ fn actions(thread: i64, nb_threads: i64) {
         step_count -= 1;
         if step_count == 0 {
             println!("Thread {} Step {}/{}", thread, step_id, STEPS);
-            step_id = step_id + 1;
+            step_id += 1;
             step_count = loop_by_step;
         }
     }
@@ -123,9 +123,7 @@ fn main() {
 
     println!("Nombre de threads pour traiter les {} boucles (les boucles seront partagées entre les threads:",LOOP_COUNT);
     match read_i64("Your choice?".to_string()) {
-        None => {
-            return;
-        }
+        None => {}
         Some(x) => {
             traitement(x);
         }
