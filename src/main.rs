@@ -22,6 +22,9 @@ DELL XPS17 => i7 2670QGM
 HP zbook => i7-6820HK
   https://ark.intel.com/content/www/fr/fr/ark/products/88970/intel-core-i7-6820hq-processor-8m-cache-up-to-3-60-ghz.html
   4C/8T 2.7Ghz Base 3.6Ghz turbo (1 coeur ?) 14nm Q3 2015 8Mo de cache 45 watt TDP HD 530 1050Mhz
+nv pc HP => i7 8665U
+  https://ark.intel.com/content/www/fr/fr/ark/products/193563/intel-core-i7-8665u-processor-8m-cache-up-to-4-80-ghz.html
+  4c/8T 1.9Ghz base 4.8Ghz turbo (1coeur?) 14nm Q2 2019 8Mo cache 25 watt TDP UHD620 1.15Ghz 
 ----------------------------------------
 théorie
 1 Thread pour 250 milliards d'op
@@ -47,6 +50,11 @@ HP/i7
 4 Thread -> 21.2904611s 3.2Ghz        2.31*xps A refaire
 8 Thread -> 20.8479379s 3.2Ghz        2.25*xps A refaire
 ----------------------------------------
+Bench sur nv pc HP cpu: i7 8665 1.9Ghz Ram: 16Go en 1 barette
+1 thread : 122.0051292s  2.47Ghz    65.7163404s 4.2Ghz puis 3.8
+2 threads:  64.415243s   2.42Ghz    40.644553s  3.7-3.6Ghz
+4 threads:  42.1351557s             27.4814645s 4.2 puis 3Ghz          
+8 threads:  30.6224833s  2.35Ghz    24.3146738s 4.2 puis 3Ghz
 
 */
 
