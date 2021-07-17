@@ -25,7 +25,10 @@ HP zbook => i7-6820HK
 nv pc HP => i7 8665U
   https://ark.intel.com/content/www/fr/fr/ark/products/193563/intel-core-i7-8665u-processor-8m-cache-up-to-4-80-ghz.html
   4c/8T 1.9Ghz base 4.8Ghz turbo (1coeur?) 14nm Q2 2019 8Mo cache 25 watt TDP UHD620 1.15Ghz 
-----------------------------------------
+DELL G15 => i7 11800H
+   https://ark.intel.com/content/www/fr/fr/ark/products/213803/intel-core-i7-11800h-processor-24m-cache-up-to-4-60-ghz.html
+   8c/16t 2,3Ghz base 4,6Ghz turbo 10nm Q2 2021 24Mo cache 45 watt TDP UHD 1,45Ghz
+  ----------------------------------------
 théorie
 1 Thread pour 250 milliards d'op
 2 Thread pour 125 milliards d'op
@@ -56,11 +59,19 @@ HP 840G6/i7 8665U
 4 threads: 27.4814645s 4.2 puis 3Ghz                            1.78*xps     
 8 threads: 24.3146738s 4.2 puis 3Ghz                            1.85*xps
 --------------------------------------------------------------------------------
-CPU           1T        2T       4T       8T
-i7 2870QM    164.85    85.61    48.96   45.17
-m3 8100Y      87.53    52.41    49.25   49.68
-i7 6820HK     71.02    37.99    22.46   22.58
-i7 8665U      65.71    40.64    27.48   24.31 
+DELL G15/I7 11800h
+ 1 thread : 54.7855278s 4,45 à 4.47Ghz puis 3.8                  3.00*xps
+ 2 threads: 27.9650044s 4,42 à 4,44 Ghz                          3.06*xps 
+ 4 threads: 14.1322422s 4.44 à 4.46 Ghz                          3,46*xps     
+ 8 threads: 7.9422156s  4.20 à 4,21 Ghz                           5,68*xps
+16 threads: 7,52733244s 4.19 Ghz                                  6,00*xps
+--------------------------------------------------------------------------------
+CPU           1T        2T       4T       8T    16T
+i7 2870QM    164.85    85.61    48.96   45.17    ?
+m3 8100Y      87.53    52.41    49.25   49.68    ?
+i7 6820HK     71.02    37.99    22.46   22.58    ?
+i7 8665U      65.71    40.64    27.48   24.31    ?
+i7 11800H     54.78    27.96    14.13   7.94     7.52
 ---------------------------------------------------------------------------------
 */
 
